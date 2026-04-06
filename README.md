@@ -10,21 +10,20 @@ El proyecto esta preparado para publicarse como sitio estatico en GitHub Pages.
 python -m http.server 3000
 ```
 
-Luego abre `http://localhost:3000/public/`.
+Luego abre `http://localhost:3000`.
 
 ## Publicacion en GitHub Pages
 
 GitHub Pages publica solamente archivos estaticos.
 
-En este repositorio, la raiz incluye un `index.html` que redirige al sitio real ubicado en
-`public/`, para que Pages pueda mostrar el storymap correctamente.
+En este repositorio, el sitio publicado ya puede servirse directamente desde la raiz.
 
 ## Estructura
 
-- `index.html`: redireccion desde la raiz del repositorio hacia `public/`
-- `public/index.html`: estructura del storymap
-- `public/styles.css`: estilos y composición visual
-- `public/app.js`: animaciones, línea temporal y comportamiento del mapa
+- `index.html`: estructura principal del storymap publicada en la raiz
+- `styles.css`: estilos y composición visual
+- `app.js`: animaciones, línea temporal y comportamiento del mapa
+- `data/`, `generated/`, `images/`: insumos y recursos estaticos usados por la pagina
 
 ## Siguiente paso sugerido
 

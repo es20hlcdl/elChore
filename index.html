@@ -1,18 +1,753 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=./public/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirigiendo a El Choré</title>
-    <script>
-      window.location.replace("./public/");
-    </script>
+    <title>Reserva El Choré: análisis cartográfico de 40 años de transformación</title>
+    <meta
+      name="description"
+      content="Análisis cartográfico de la transformación territorial de la Reserva El Choré entre 1985 y 2023 con series históricas de MapBiomas Bolivia."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Newsreader:opsz,wght@6..72,400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <p>
-      Redirigiendo al sitio…
-      <a href="./public/">Abrir El Choré</a>
-    </p>
+    <main class="page-shell">
+      <div class="hero-header">
+        <div class="hero-header__inner">
+          <div class="hero-topbar" aria-label="Contexto del proyecto">
+            Reserva El Choré: 40 años de transformación • Santa Cruz, Bolivia
+          </div>
+          <nav class="hero-sections" aria-label="Secciones del StoryMap">
+            <a href="#inicio">Inicio</a>
+            <a href="#antecedentes">Antecedentes</a>
+            <a href="#transformacion">Transformación</a>          
+            <a href="#resultados">Resultados</a>
+            <a href="#factores">Factores</a>
+            <a href="#site-footer-title">Fuentes</a>
+          </nav>
+        </div>
+      </div>
+      <section id="inicio" class="hero">
+        <img
+          class="hero__background"
+          src="./images/portada.png"
+          alt="Mapa de portada de la Reserva El Choré"
+        />
+        <div class="hero__veil"></div>
+        <div class="hero__texture"></div>
+        <div class="hero__content">
+          <div class="hero__grid">
+            <div class="hero-copy reveal">
+              <h1>Reserva Forestal El Choré: 40 años de transformación</h1>      
+              <p class="hero-copy__dek">
+                 Una exploración visual con datos de MapBiomas Bolivia (1985–2023)
+              </p>
+              <div class="hero-copy__meta">
+                <p>Gustavo Abel Caceres Martinez</p>
+                <p>11 de agosto de 2025</p>
+              </div>
+              <div class="hero-metrics" aria-label="Indicadores clave">
+                <article class="hero-metrics__item">
+                  <span class="hero-metrics__value">163 mil ha</span>
+                  <p class="hero-metrics__label">de bosque perdido entre 1985 y 2023</p>
+                </article>
+                <article class="hero-metrics__item">
+                  <span class="hero-metrics__value">21×</span>
+                  <p class="hero-metrics__label">creció la superficie agrícola en cuatro décadas</p>
+                </article>
+                <article class="hero-metrics__item">
+                  <span class="hero-metrics__value">770.584 ha</span>
+                  <p class="hero-metrics__label">corresponden al área protegida declarada en 2024</p>
+                </article>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true">
+          <span></span>
+        </div>
+      </section>
+
+      <section id="historia" class="story-layout">
+        <div id="antecedentes" class="story-layout__lede section-head section-head--wide reveal">
+          <p class="eyebrow">Antecedentes</p>
+          <h2>Reserva Forestal El Choré </h2>
+          <p>
+            El Choré muestra un cambio progresivo del
+            patrón de ocupación del suelo: la matriz forestal continua retrocede, mientras se
+            expanden los usos agropecuarios, los caminos (aunque en mal estado) y los asentamientos en el sur y
+            sureste del territorio, en dirreción noreste.
+          </p>
+          <div class="story-layout__tags" aria-label="Claves territoriales">
+            <span>Cobertura forestal</span>
+            <span>Cambio de uso de suelo</span>
+            <span>Presión territorial</span>
+          </div>
+        </div>
+
+        <section class="map-story reveal" aria-labelledby="map-story-title">
+          <div id="antecedentes-mapa" class="map-story__frame">
+            <div class="map-story__panel">
+              <h2 id="map-story-title">Ubicación</h2>
+              <p>
+                La Reserva Forestal El Choré se ubica en el sector noroeste del departamento de
+                Santa Cruz, al norte de las provincias Sara e Ichilo, dentro de los municipios de
+                Santa Rosa del Sara, San Juan y Yapacaní.
+              </p>
+            </div>
+            <div class="reserve-detail__panel">
+              <p>
+                <strong>El Choré</strong> es la última gran mancha amazónica al norte de Santa Cruz. Con más
+                <strong>1,08 millones de hectáreas</strong>. Su continuidad territorial cumplía un papel clave en la
+                regulación hídrica, la conectividad ecológica y el aprovechamiento forestal.
+              </p>
+            </div>
+            <div class="map-story__map" id="reserveMap" aria-label="Mapa de ubicación de la reserva"></div>
+          </div>
+        </section>
+
+        <section class="legal-timeline" aria-labelledby="legal-timeline-title">
+          <div class="legal-timeline__inner">
+            <h2 class="legal-timeline__title" id="legal-timeline-title">Linea de tiempo</h2>
+            <div class="legal-timeline__track">
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    El Choré fue creado mediante el <strong>Decreto Supremo N° 7779</strong>, del
+                    3 de agosto de 1966, como reserva forestal por sus condiciones edáficas,
+                    ecológicas y climáticas predominantemente forestales. La superficie inicial
+                    registrada fue de aproximadamente <strong>900.000 hectáreas</strong>.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">1966</div>
+                </div>
+              </article>
+
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    En 1969 se modificó el límite sur de la Reserva Forestal El Choré, desplazándolo
+                    del paralelo 17°05' Sur al paralelo 17°00' Sur.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">1969</div>
+                </div>
+              </article>
+
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    Mediante el <strong>Decreto Supremo N° 22899</strong>, del 16 de septiembre de 1991,
+                    la reserva se amplió hacia el sur en <strong>180.000 hectáreas</strong>, al
+                    considerarse que esa franja presentaba las mismas condiciones forestales del área
+                    original. Con ello, la superficie aproximada alcanzó
+                    <strong>1.080.000 hectáreas</strong>.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">1991</div>
+                </div>
+              </article>
+
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    El 21 de septiembre de 1995, mediante el <strong>Decreto Supremo N° 24124</strong>,
+                    se aprobó el Plan de Uso del Suelo del departamento de Santa Cruz. En El Choré,
+                    esta norma consolidó dos unidades de lectura territorial:
+                    <strong>B2</strong>, bosque de manejo sostenible
+                    (<strong>784.538 hectáreas</strong>, 77,8%), y <strong>AF</strong>, unidad
+                    agroforestal en el sector sureste (<strong>223.962 hectáreas</strong>, 22,2%)
+                    destinada al asentamiento de pequeños agricultores.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">1995</div>
+                </div>
+              </article>
+
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    Mediante el <strong>Decreto Supremo N° 25839</strong>, del 7 de julio de 2000, se
+                    levantó la prohibición de asentamientos y habilitación agropecuaria en
+                    <strong>211.632,55 hectáreas</strong>. La medida reconoció la presencia de
+                    comunidades campesinas y propiedades particulares ya establecidas, y marcó un punto
+                    de inflexión en la ocupación del sector sur y sureste.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">2000</div>
+                </div>
+              </article>
+
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    A través del <strong>Decreto Departamental N° 103</strong>, del 10 de febrero de
+                    2011, Santa Cruz impulsó medidas de <strong>protección, prevención, atención y
+                    mitigación de daños</strong> en la Reserva Forestal de Producción El Choré,
+                    articulando planificación territorial, estudios técnicos y acciones de conservación.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">2011</div>
+                </div>
+              </article>
+
+              <article class="legal-event">
+                <div class="legal-event__card">
+                  <p class="legal-event__text">
+                    Mediante el <strong>Decreto Supremo N° 5202</strong>, del 14 de agosto de 2024, se
+                    declaró Área Protegida «El Choré» a una superficie aproximada de
+                    <strong>770.584 hectáreas</strong>, bajo la siguiente distribución:
+                  </p>
+                  <p class="legal-event__text legal-event__text--compact">
+                    <strong>a)</strong> Parque Nacional «El Choré», aproximadamente
+                    <strong>545.987 hectáreas</strong>;
+                  </p>
+                  <p class="legal-event__text legal-event__text--compact">
+                    <strong>b)</strong> Área Natural de Manejo Integrado «El Choré», aproximadamente
+                    <strong>224.597 hectáreas</strong>.
+                  </p>
+                  <p class="legal-event__text">
+                    Este nuevo marco jurídico redefine la gestión del territorio y establece una base
+                    más sólida para control, conservación y restauración de áreas degradadas en El Choré.
+                  </p>
+                </div>
+                <div class="legal-event__marker">
+                  <div class="legal-event__year">2024</div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="transformacion-seccion" class="preview-sidecar" aria-labelledby="preview-sidecar-title">
+          <div id="transformacion" class="preview-sidecar__intro section-head section-head--wide reveal">
+            <p class="eyebrow">Transformación</p>
+            <h2 id="preview-sidecar-title">El cambio de uso del suelo medido por décadas</h2>  
+          </div>
+
+          <div class="preview-sidecar__chapters">
+            <article
+              class="preview-sidecar__chapter is-active"
+              data-preview-key="1985"
+              aria-labelledby="preview-sidecar-year-title"
+            >
+              <p class="eyebrow">Uso de suelo</p>
+              <h2 id="preview-sidecar-year-title">1985 - Línea base del Choré</h2>
+              <div class="preview-sidecar__body">
+                <ul class="preview-sidecar__list">
+                  <li>En 1985, la cobertura forestal dominaba casi por completo el territorio analizado.</li>
+                  <li>El bosque registraba <strong>490.366 hectáreas</strong>, mientras la agricultura ocupaba solo <strong>8.342 hectáreas</strong>.</li>
+                  <li>Las aperturas se concentraban en el borde sur y todavía no alteraban de forma generalizada la continuidad del bosque.</li>
+                  <li>Los cuerpos de agua, humedales y bosques inundables mantenían una configuración territorial estable.</li>
+                  <li><em>Esta imagen funciona como línea base para medir el cambio posterior.</em></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="preview-sidecar__chapter" data-preview-key="1995">
+              <p class="eyebrow">Uso de suelo</p>
+              <h2>1995 - Primeras presiones y redefinición del uso</h2>
+              <div class="preview-sidecar__body">
+                <p class="preview-sidecar__lead">
+                  En 1995, la cobertura forestal seguía siendo dominante, pero el
+                  <strong>Plan de Uso del Suelo (PLUS)</strong> introdujo una nueva lectura normativa
+                  del territorio.
+                </p>
+                <ul class="preview-sidecar__list">
+                  <li>Ya se observan <strong>aperturas agrícolas más visibles</strong> en el sector sur y sureste.</li>
+                  <li>El PLUS redefinió parte de la reserva en dos unidades:</li>
+                </ul>
+                <ul class="preview-sidecar__sublist">
+                  <li><strong>B2</strong> (Bosque de manejo sostenible).</li>
+                  <li><strong>AF</strong> (Agroforestal), destinada al asentamiento campesino.</li>
+                </ul>
+                <ul class="preview-sidecar__list">
+                  <li>Este cambio marcó el inicio de una presión legal y territorial más definida sobre la reserva.</li>
+                  <li><em>La transformación todavía es puntual, pero la dirección del proceso ya resulta clara.</em></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="preview-sidecar__chapter" data-preview-key="2005">
+              <p class="eyebrow">Uso de suelo</p>
+              <h2>2005 - El impacto de la desafectación del 2000</h2>
+              <div class="preview-sidecar__body">
+                <p class="preview-sidecar__lead">
+                  Para 2005, la transformación deja de ser puntual y pasa a ser territorialmente visible.
+                </p>
+                <ul class="preview-sidecar__list">
+                  <li>Tras el <strong>Decreto Supremo 25839 (2000)</strong>, la ocupación agropecuaria gana extensión en el sur y sureste.</li>
+                  <li>La agricultura alcanza <strong>53.970 hectáreas</strong>, un salto notable respecto a 1985 y 1995.</li>
+                  <li>La fragmentación ya es evidente: el bosque deja de comportarse como un bloque continuo y aparece como un mosaico con claros y desmontes.</li>
+                  <li><em>El patrón espacial confirma una aceleración del cambio de uso del suelo.</em></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="preview-sidecar__chapter" data-preview-key="2015">
+              <p class="eyebrow">Uso de suelo</p>
+              <h2>2015 - Intensificación agrícola y fragmentación</h2>
+              <div class="preview-sidecar__body">
+                <p class="preview-sidecar__lead">
+                  Para 2015, la conversión agropecuaria ya estructura el borde sur y sureste del Choré:
+                </p>
+                <ul class="preview-sidecar__list">
+                  <li>La agricultura llega a <strong>122.138 hectáreas</strong> y consolida un frente de transformación sostenido.</li>
+                  <li>La agricultura mecanizada y la ganadería extensiva se afianzan como motores principales del cambio.</li>
+                  <li>La apertura de tierras y el uso recurrente del fuego amplían los bordes expuestos del bosque.</li>
+                  <li>La conectividad ecológica se reduce y el bosque queda dividido en <strong>parches cada vez más aislados</strong>.</li>
+                  <li><em>Treinta años después de la línea base, la continuidad forestal ya está claramente comprometida.</em></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="preview-sidecar__chapter" data-preview-key="2023">
+              <p class="eyebrow">Uso de suelo</p>
+              <h2>2023 - Situación actual</h2>
+              <div class="preview-sidecar__body">
+                <p class="preview-sidecar__lead">
+                  En 2023, la transformación territorial queda consolidada en el sur y sureste del Choré:
+                </p>
+                <ul class="preview-sidecar__list">
+                  <li>La agricultura registra <strong>180.222 hectáreas</strong>, frente a 8.342 hectáreas en 1985.</li>
+                  <li>El bosque desciende a <strong>327.207 hectáreas</strong>, con remanentes concentrados en la zona central y norte.</li>
+                  <li>La red de asentamientos y áreas intervenidas muestra una presión territorial sostenida sobre el borde de la reserva.</li>
+                  <li>La fragmentación ya no es un proceso incipiente, sino la forma dominante del paisaje en los sectores más transformados.</li>
+                  <li><em>La cartografía confirma un hecho concreto: el Choré perdió continuidad forestal mientras avanzó la ocupación agropecuaria.</em></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="preview-sidecar__chapter" data-preview-key="compare">
+              <p class="eyebrow">Comparación temporal</p>
+              <h2 id="swipe-compare-title">1985 vs 2023 - 40 años en un solo vistazo</h2>
+              <div class="preview-sidecar__body">
+                <p class="preview-sidecar__lead">
+                  El comparador resume el cambio acumulado entre la línea base y la situación actual.
+                </p>
+                <ul class="preview-sidecar__list">
+                  <li>En 1985, el territorio estaba dominado por una matriz forestal continua.</li>
+                  <li>En 2023, el sur y sureste muestran un paisaje ampliamente transformado por actividades agropecuarias.</li>
+                  <li>El swipe permite ver con claridad el desplazamiento de la frontera agropecuaria.</li>
+                  <li><em>Esta vista sintetiza cuatro décadas de pérdida de continuidad del bosque.</em></li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <aside class="preview-sidecar__map-shell">
+            <div
+              class="preview-sidecar__map-panel is-active"
+              data-preview-key="1985"
+              aria-label="Mapa sidecar de 1985"
+            >
+              <div class="preview-sidecar__map" id="previewSidecarMap1985"></div>
+            </div>
+            <div
+              class="preview-sidecar__map-panel"
+              data-preview-key="1995"
+              aria-label="Mapa sidecar de 1995"
+            >
+              <div class="preview-sidecar__map" id="previewSidecarMap1995"></div>
+            </div>
+            <div
+              class="preview-sidecar__map-panel"
+              data-preview-key="2005"
+              aria-label="Mapa sidecar de 2005"
+            >
+              <div class="preview-sidecar__map" id="previewSidecarMap2005"></div>
+            </div>
+            <div
+              class="preview-sidecar__map-panel"
+              data-preview-key="2015"
+              aria-label="Mapa sidecar de 2015"
+            >
+              <div class="preview-sidecar__map" id="previewSidecarMap2015"></div>
+            </div>
+            <div
+              class="preview-sidecar__map-panel"
+              data-preview-key="2023"
+              aria-label="Mapa sidecar de 2023"
+            >
+              <div class="preview-sidecar__map" id="previewSidecarMap2023"></div>
+            </div>
+            <div
+              class="preview-sidecar__map-panel preview-sidecar__map-panel--compare"
+              data-preview-key="compare"
+              aria-label="Comparador sidecar entre 1985 y 2023"
+            >
+              <div class="swipe-compare__legend" aria-label="Gestiones comparadas">
+                <span class="swipe-compare__legend-item">Gestión 1985</span>
+                <span class="swipe-compare__legend-item">Gestión 2023</span>
+              </div>
+
+              <div class="swipe-compare__frame swipe-compare__frame--sidecar">
+                <div class="swipe-compare__map" id="swipeCompareMap" aria-label="Comparador swipe entre 1985 y 2023"></div>
+                <div class="swipe-compare__divider" id="swipeDivider" aria-hidden="true">
+                  <span class="swipe-compare__divider-label swipe-compare__divider-label--before">1985</span>
+                  <span class="swipe-compare__handle">
+                    <span></span>
+                  </span>
+                  <span class="swipe-compare__divider-label swipe-compare__divider-label--after">2023</span>
+                </div>
+                <input
+                  class="swipe-compare__range"
+                  id="swipeCompareRange"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="50"
+                  aria-label="Deslizador comparativo entre 1985 y 2023"
+                />
+              </div>
+            </div>
+          </aside>
+        </section>
+
+      <section id="resultados-seccion" class="results-block reveal" aria-labelledby="results-title">
+        <div id="resultados" class="results-block__intro section-head">
+          <p class="eyebrow">Resultados</p>
+          <h2 id="results-title">Hallazgos principales</h2>
+          <p>
+            El análisis multitemporal con datos de <strong>MapBiomas (1985–2023)</strong> permite cuantificar
+            los cambios más relevantes en la Reserva El Choré. En casi cuatro décadas, el territorio
+            experimentó una pérdida sostenida de cobertura boscosa acompañada por una fuerte expansión
+            de la agricultura y las pasturas.
+          </p>
+          <p>
+            Los datos muestran, además, que esta transformación no es homogénea: en Yapacaní el bosque
+            todavía predomina con presiones incipientes; en San Juan la fragmentación ya es estructural;
+            y en Santa Rosa del Sara la transformación es intensa, con un paisaje ampliamente dominado
+            por usos agropecuarios.
+          </p>
+        </div>
+
+      </section>
+
+      <section class="analysis-suite" aria-labelledby="analysis-suite-title">
+        <section class="analysis-chart reveal" aria-labelledby="analysis-line-title">
+          <div class="analysis-chart__text">
+            <p class="eyebrow">Gráfico 1</p>
+            <h2 id="analysis-line-title">Evolución del bosque y la agricultura</h2>
+            <p>
+              Entre 1985 y 2023, la Reserva El Choré perdió <strong>163.159 hectáreas de bosque (-33%)</strong>,
+              mientras que las áreas agrícolas se expandieron en <strong>171.880 hectáreas</strong>.
+            </p>
+            <p>
+              Este gráfico evidencia, con base en superficie, cómo la frontera agropecuaria avanzó a
+              costa de la cobertura forestal en menos de cuatro décadas.
+            </p>
+          </div>
+          <div class="analysis-chart__viz">
+            <canvas id="forestAgricultureChart" aria-label="Gráfico de evolución del bosque y la agricultura"></canvas>
+          </div>
+        </section>
+
+        <section class="analysis-chart reveal" aria-labelledby="analysis-stack-title">
+          <div class="analysis-chart__text">
+            <p class="eyebrow">Gráfico 2</p>
+            <h2 id="analysis-stack-title">Estructura de usos de suelo</h2>
+            <p>
+              En 1985, los bosques <strong>(bosque + bosque inundable)</strong> representaban el
+              <strong>88,2%</strong> de la superficie.
+            </p>
+            <p>
+              Para 2023, ese valor se redujo a <strong>65,1%</strong>, mientras la agricultura y otros
+              usos antrópicos ganaron peso dentro de la estructura territorial.
+            </p>
+          </div>
+          <div class="analysis-chart__viz">
+            <canvas id="landUseStructureChart" aria-label="Gráfico de estructura de usos de suelo"></canvas>
+          </div>
+        </section>
+
+        <section class="analysis-chart reveal" aria-labelledby="analysis-change-title">
+          <div class="analysis-chart__text">
+            <p class="eyebrow">Gráfico 3</p>
+            <h2 id="analysis-change-title">Pérdida de bosques y expansión agrícola</h2>
+            <p>
+              El balance de cambios muestra que el mayor incremento corresponde a la agricultura
+              (<strong>+171.880 ha</strong>), mientras que las mayores pérdidas se concentran en
+              bosque y bosque inundable.
+            </p>
+          </div>
+          <div class="analysis-chart__viz">
+            <canvas id="changeBalanceChart" aria-label="Gráfico de balance de cambios entre 1985 y 2023"></canvas>
+          </div>
+        </section>
+
+        <div class="results-block__card">
+          <div class="results-block__icon" aria-hidden="true">+</div>
+          <div class="results-block__content">
+            <ul class="results-block__list">
+              <li>
+                <strong>Bosque:</strong> pasó de <strong>490.366 ha en 1985</strong> a
+                <strong>327.207 ha en 2023</strong>, lo que representa una
+                <strong>pérdida de 163.159 ha (-33%)</strong>.
+              </li>
+              <li>
+                <strong>Bosque inundable:</strong> disminuyó en casi
+                <strong>68.000 ha</strong>, aunque se mantiene como un ecosistema clave para la
+                regulación hídrica.
+              </li>
+              <li>
+                <strong>Agricultura:</strong> se expandió de
+                <strong>8.342 ha en 1985</strong> a <strong>180.222 ha en 2023</strong>, un
+                <strong>incremento de más de 21 veces</strong>.
+              </li>
+              <li>
+                <strong>Pasturas:</strong> pasaron de <strong>5.352 ha en 1985</strong> a
+                <strong>14.798 ha en 2023</strong>, reflejando la consolidación de la ganadería
+                extensiva.
+              </li>
+              <li>
+                <strong>Herbazales y humedales:</strong> registran incrementos menores, pero ayudan
+                a evidenciar la recomposición del mosaico territorial en sectores intervenidos.
+              </li>
+              <li>
+                <strong>Infraestructura urbana:</strong> creció de apenas
+                <strong>2,6 ha en 1985</strong> a <strong>más de 126 ha en 2023</strong>,
+                reflejando la consolidación de asentamientos dentro y alrededor de la reserva.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="factores-seccion" class="pressure-section reveal" aria-labelledby="pressure-title">
+        <div id="factores" class="pressure-section__intro section-head section-head--wide">
+          <p class="eyebrow">Factores</p>
+          <h2 id="pressure-title">Factores de presión territorial</h2>
+          <p>
+            El análisis muestra que la mayor pérdida de bosque y bosque inundable
+            se concentra donde avanzan la agricultura, las pasturas y la ocupación del territorio. 
+            El proceso se intensifica después del año 2000 y altera de forma
+            directa la continuidad espacial del paisaje forestal.
+          </p>
+          <p>
+            La distribución de centros poblados, corredores de acceso y áreas transformadas sugiere
+            una presión territorial acumulativa que limita el manejo forestal sostenible. 
+          </p>
+        </div>
+
+        <div class="pressure-section__grid">
+          <article class="pressure-map-story">
+            <div class="pressure-map-story__copy">
+              <p>
+                La agricultura mecanizada y la ganadería extensiva constituyen los principales motores
+                de transformación. Estas actividades sustituyen bosque por superficies productivas y
+                aceleran la pérdida de continuidad territorial.
+              </p>
+            </div>
+            <div
+              class="pressure-map-story__map"
+              id="pressureMapStory"
+              aria-label="Mapa narrativo de factores de presión en la Reserva El Choré"
+            ></div>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="settlement-panel reveal" aria-labelledby="settlement-panel-title">
+        <div class="settlement-panel__frame">
+          <div class="settlement-panel__map" id="settlementPressureMap" aria-label="Mapa territorial de presión y fragmentación en El Choré"></div>
+          <div class="settlement-panel__copy">
+            <p>
+              La distribución de centros poblados y áreas transformadas muestra una correspondencia
+              espacial clara: la mayor densidad de ocupación se ubica en el borde sur y sureste,
+              donde la fragmentación del bosque es más intensa. Esta configuración reduce la
+              continuidad territorial y complejiza la gestión del área.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="evidence-band reveal" aria-labelledby="evidence-band-title">
+        <figure class="evidence-band__media">
+          <img src="./images/imgforfragmentar.png" alt="Patrón de fragmentación del bosque en la Reserva El Choré" />
+        </figure>
+        <div class="evidence-band__copy">
+          <p class="eyebrow">La fragmentación reconfigura la forma del territorio</p>
+          <p>
+            La pérdida de bosque no se expresa solo como reducción de superficie, sino como ruptura
+            de la continuidad espacial. Allí donde antes predominaba una matriz forestal conectada,
+            hoy aparecen bordes, claros, corredores antrópicos y parches aislados.
+          </p>
+          <p>
+            La presión sobre El Choré combina apertura de tierras, asentamientos, ampliación
+            productiva e incendios. La desafectación del año 2000 consolidó un escenario de
+            ocupación más intensa y aceleró la apertura de áreas agrícolas dentro de la reserva.
+          </p>
+        </div>
+      </section>
+
+      <section class="pressure-tour reveal" aria-labelledby="pressure-tour-title">
+        <div class="pressure-tour__map-frame">
+          <div class="pressure-tour__map" id="pressureTourMap" aria-label="Recorrido de focos de presión en la Reserva El Choré"></div>
+          <div class="pressure-tour__callout" id="pressureTourCallout" aria-live="polite"></div>
+        </div>
+
+        <aside class="pressure-tour__panel">
+          <div class="pressure-tour__toolbar">
+            <button class="pressure-tour__nav pressure-tour__nav--back" id="pressureTourPrev" type="button">
+              ← Atrás
+            </button>
+            <div class="pressure-tour__counter" id="pressureTourCounter">1 / 3</div>
+            <button class="pressure-tour__nav pressure-tour__nav--next" id="pressureTourNext" type="button">
+              Siguiente →
+            </button>
+          </div>
+
+          <div class="pressure-tour__content">           
+            <h2 id="pressure-tour-title"></h2>
+            <p id="pressureTourText"></p>
+          </div>
+
+          <div class="pressure-tour__steps">
+            <button class="pressure-tour__step is-active" data-step="0" type="button">
+              Frontera de transición
+            </button>
+            <button class="pressure-tour__step" data-step="1" type="button">
+              Núcleo de fragmentación
+            </button>
+            <button class="pressure-tour__step" data-step="2" type="button">
+              Zona de transformación intensa
+            </button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="fire-panel reveal" aria-labelledby="fire-panel-title">
+        <div class="fire-panel__visual" aria-hidden="true">
+          <div class="fire-panel__sky"></div>
+          <div class="fire-panel__flames"></div>
+          <div class="fire-panel__forest"></div>
+        </div>
+        <div class="fire-panel__copy">
+          <p>
+            Cuando el bosque pierde continuidad, aumentan los bordes expuestos y se incrementa la
+            vulnerabilidad a incendios y degradación. La reserva reduce así su capacidad de regular
+            agua, clima y conectividad ecológica.
+          </p>
+          <p>
+            La fragmentación representa un impacto mayor que la simple pérdida de hectáreas, porque
+            compromete la conectividad ecológica y acelera procesos de deterioro sobre los remanentes
+            forestales.
+          </p>
+        </div>
+      </section>
+
+      <section class="closing-panel reveal" aria-labelledby="closing-title">
+        <div
+          class="closing-panel__media"
+          aria-label="Vista 360 del bosque en la Reserva Forestal El Choré"
+        >
+          <div class="closing-panel__panorama" id="closingPanorama" aria-hidden="true"></div>
+          <div class="closing-panel__content">        
+            <p>
+              La degradación del bosque no siempre aparece como cambio de uso. La extracción de especies maderables valiosas como mara y cedro, tanto legal como
+              ilegal, ha degradado la estructura del bosque. Aunque este proceso es menos visible, su efecto es acumulativo y reduce la calidad
+              ecológica del ecosistema.  
+            </p>            
+          </div>
+        </div>
+      </section>
+
+      <section class="conclusion-photo-panel reveal" aria-label="Vista del bosque en la Reserva Forestal El Choré">
+        <div class="conclusion-photo-panel__media">
+          <img
+            class="conclusion-photo-panel__image"
+            src="./images/imgforconclusiones.jpg"
+            alt="Vista del bosque en la Reserva Forestal El Choré"
+          />
+          <div class="conclusion-photo-panel__content">            
+            <p>              
+              La gestión futura de El Choré depende de conservar remanentes continuos, restaurar áreas
+              degradadas y reducir las presiones que fragmentan el bosque desde sus bordes y corredores
+              de acceso.
+            </p>
+            <p>              
+              El ahora Area Protegida «El Choré» en sus dos categorías (Parque Nacional y Área Natural de Manejo Integrado) se enfrenta a un nuevo reto: conservar los remanentes forestales y restaurar las áreas degradadas. Sin embargo, el éxito de esta nueva etapa dependerá de la capacidad de articular planificación territorial, estudios técnicos y acciones de conservación en un contexto de presión territorial sostenida.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer reveal" aria-labelledby="site-footer-title">
+        <div class="site-footer__inner">
+          <div class="site-footer__header">
+            <h2 id="site-footer-title">Fuentes de datos y elaboración</h2>            
+          </div>
+          <div class="site-footer__grid">
+            <div class="site-footer__block site-footer__block--meta">
+              <p class="site-footer__kicker">Fuentes y créditos</p>
+              <p>
+                <strong>Datos de cobertura y uso de suelo:</strong> MapBiomas Bolivia, Colección 2.0 (1985–2023).
+              </p>
+              <p>
+                <strong>Procesamiento y análisis:</strong> Google Earth Engine (GEE) y ArcGIS Pro 3.3.
+              </p>
+              <p>
+                <strong>Cartografía base, límites administrativos y centros poblados:</strong> Ministerio de Medio Ambiente y Agua (MMAyA), Gobernación de Santa Cruz, INE.
+              </p>
+              <p>
+                <strong>Elaborado por:</strong> Gustavo Abel Caceres Martinez.
+              </p>
+              <div class="site-footer__links" aria-label="Redes de Gustavo Abel Caceres Martinez">
+                <a href="https://www.linkedin.com/in/gustavo-c%C3%A1ceres-sig/" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href="https://www.spatialnode.net/es20hlcdl" target="_blank" rel="noreferrer">Spatialnode</a>
+                <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noreferrer">Gmail</a>
+              </div>
+            </div>
+            <div class="site-footer__block site-footer__block--summary">
+              <p class="site-footer__kicker">Propósito del StoryMap</p>
+              <p>
+                Este StoryMap integra cartografía, análisis espacial e interpretación territorial
+                para mostrar cómo cambió El Choré en cuatro décadas.
+              </p>
+              <p>
+                El objetivo es documentar un hecho concreto: la pérdida de continuidad forestal y el
+                avance de la ocupación agropecuaria dentro de un territorio estratégico para la gestión
+                ambiental del norte cruceño.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+      defer
+    ></script>
+    <script src="https://unpkg.com/georaster/dist/georaster.browser.bundle.min.js" defer></script>
+    <script src="https://unpkg.com/georaster-layer-for-leaflet/dist/georaster-layer-for-leaflet.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+    <script src="./app.js" defer></script>
   </body>
 </html>
