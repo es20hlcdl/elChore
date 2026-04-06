@@ -1,0 +1,22 @@
+<PAMDataset>
+  <PAMRasterBand band="1">
+    <Description>classification_2023</Description>
+    <Histograms>
+      <HistItem>
+        <HistMin>-0.4927536231884058</HistMin>
+        <HistMax>68.49275362318841</HistMax>
+        <BucketCount>69</BucketCount>
+        <IncludeOutOfRange>0</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>8885540|0|0|3819053|0|0|3778416|0|0|0|0|116829|1172962|5090|0|173294|0|0|2105877|0|0|71064|0|11592|1446|6255|0|2|0|0|2|0|0|225605|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|84963</HistCounts>
+      </HistItem>
+    </Histograms>
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">68</MDI>
+      <MDI key="STATISTICS_MEAN">5.143823317931</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">7.70670059813</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

@@ -1,0 +1,20 @@
+{
+  "year": 2023,
+  "source": "uso_suelo_2023_reserva_chore.tif",
+  "preview": "uso_suelo_2023_preview.png",
+  "original": {
+    "width": 4639,
+    "height": 4410
+  },
+  "previewSize": {
+    "width": 1400,
+    "height": 1331
+  },
+  "bounds": [
+    -64.83878024023564,
+    -17.003221866285894,
+    -63.5885948593265,
+    -15.814750745395767
+  ],
+  "generatedAt": "2026-04-04T20:50:18.769Z"
+}
