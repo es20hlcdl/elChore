@@ -1,8 +1,9 @@
-# elChore
+# ElChore
 
 Storymap editorial inspirado en la reserva El Chore.
 
 El proyecto esta preparado para publicarse como sitio estatico en GitHub Pages.
+Puedes visitarlo en el siguiente link:https://es20hlcdl.github.io/elChore/
 
 ## Abrir en local
 
