@@ -359,6 +359,33 @@ p {
   color: var(--text);
 }
 
+.hero-copy__author-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28rem;
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+}
+
+.hero-copy__author-link span {
+  font-size: 0.82em;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform 160ms ease;
+}
+
+.hero-copy__author-link:hover,
+.hero-copy__author-link:focus-visible {
+  color: #fff8eb;
+  text-decoration: underline;
+}
+
+.hero-copy__author-link:hover span,
+.hero-copy__author-link:focus-visible span {
+  transform: translate(1px, -1px);
+}
+
 .hero-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
