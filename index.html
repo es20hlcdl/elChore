@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -109,6 +109,20 @@
             <span>Cambio de uso de suelo</span>
             <span>Presión territorial</span>
           </div>
+
+          <!-- WIDGET DE COBERTURA BOSCOSA HISTÓRICA (Restaurado) -->
+          <div class="preview-raster">
+            <div class="timeline" aria-label="Línea temporal de cobertura boscosa">
+              <button class="timeline__item is-active" data-year="1985" type="button">1985</button>
+              <button class="timeline__item" data-year="2000" type="button">2000</button>
+              <button class="timeline__item" data-year="2010" type="button">2010</button>
+              <button class="timeline__item" data-year="2023" type="button">2023</button>
+            </div>
+            <div class="stats-card">
+              <p class="stats-card__label">Porcentaje de bosque restante</p>
+              <div class="stats-card__value" id="forestValue">92%</div>
+            </div>
+          </div>
         </div>
 
         <section class="map-story reveal" aria-labelledby="map-story-title">
@@ -121,14 +135,21 @@
                 Santa Rosa del Sara, San Juan y Yapacaní.
               </p>
             </div>
+            <div class="map-story__map" id="reserveMap" aria-label="Mapa de ubicación de la reserva"></div>
+          </div>
+        </section>
+
+        <section class="reserve-detail reveal" aria-labelledby="reserve-detail-title">
+          <div class="reserve-detail__frame">
+            <h2 class="reserve-detail__title" id="reserve-detail-title">Límites y Extensión</h2>
             <div class="reserve-detail__panel">
               <p>
-                <strong>El Choré</strong> es la última gran mancha amazónica al norte de Santa Cruz. Con más
+                <strong>El Choré</strong> es la última gran mancha amazónica al norte de Santa Cruz. Con más de
                 <strong>1,08 millones de hectáreas</strong>. Su continuidad territorial cumplía un papel clave en la
                 regulación hídrica, la conectividad ecológica y el aprovechamiento forestal.
               </p>
             </div>
-            <div class="map-story__map" id="reserveMap" aria-label="Mapa de ubicación de la reserva"></div>
+            <div class="reserve-detail__map" id="reserveDetailMap" aria-label="Mapa detallado de la Reserva El Choré"></div>
           </div>
         </section>
 
