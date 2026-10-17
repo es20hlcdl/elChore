@@ -1,4 +1,8 @@
-﻿const yearData = {
+// CARTO Basemaps API key (requerida desde que CARTO exige key en sus teselas).
+// Nota: es visible públicamente en el navegador; restríngela por dominio en CARTO si es posible.
+const CARTO_API_KEY = "cb1_2wxc_1_8f1fb6a34a44a8844d1a3805";
+
+const yearData = {
   1985: { forest: "92%" },
   2000: { forest: "81%" },
   2010: { forest: "69%" },
@@ -519,7 +523,7 @@ const setupReserveDetailMap = () => {
     scrollWheelZoom: false
   });
 
-  window.L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+  window.L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
     subdomains: "abcd",
     attribution: "OpenStreetMap, CARTO"
   }).addTo(map);
@@ -610,7 +614,7 @@ const setupPreviewMapPanel = ({ mapId, metadataPath, fallbackMessage, year }) =>
   });
   mapElement.__leafletMap = map;
 
-  window.L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+  window.L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
     subdomains: "abcd",
     attribution: "OpenStreetMap, CARTO"
   }).addTo(map);
@@ -830,7 +834,7 @@ const setupSwipeCompareMap = () => {
   });
   mapElement.__leafletMap = map;
 
-  window.L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+  window.L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
     subdomains: "abcd",
     attribution: "OpenStreetMap, CARTO"
   }).addTo(map);
@@ -1067,7 +1071,7 @@ const setupPressureTour = () => {
     scrollWheelZoom: false
   });
 
-  window.L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  window.L.tileLayer(`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
     subdomains: "abcd",
     attribution: "OpenStreetMap, CARTO"
   }).addTo(map);
